@@ -2,7 +2,16 @@
 
 session_start();
 require_once 'config.php';
+require_once 'security.php';
 
+$csrfToken = $_POST['csrf_token'] ?? '';
+
+if (!csrf_verify($csrfToken)) {
+    $_SESSION['error'] = "Your session expired. Please try again.";
+    $_SESSION['active_form'] = isset($_POST['register']) ? 'register' : 'login';
+    header("Location: index.php");
+    exit();
+}
 
 if (isset($_POST['register'])) {
 
@@ -109,6 +118,15 @@ if (isset($_POST['login'])) {
         exit();
     }
 
+    $throttleKey = 'user_' . strtolower($username) . '_' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+
+    if (login_is_locked($throttleKey)) {
+        $_SESSION['error'] = "Too many failed attempts. Please try again in " . login_lock_seconds_remaining($throttleKey) . " seconds.";
+        $_SESSION['active_form'] = 'login';
+        header("Location: index.php");
+        exit();
+    }
+
     $stmt = $conn->prepare("SELECT id, username, password, account_type, status, department FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -118,12 +136,14 @@ if (isset($_POST['login'])) {
         $user = $result->fetch_assoc();
 
         if (!password_verify($password, $user['password'])) {
+            login_register_failure($throttleKey);
             $_SESSION['error'] = "Incorrect username or password.";
             $_SESSION['active_form'] = 'login';
         } elseif ($user['account_type'] === 'Employee' && $user['status'] !== 'approved') {
             $_SESSION['error'] = "Your employee account is still waiting for administrator approval.";
             $_SESSION['active_form'] = 'login';
         } else {
+            login_register_success($throttleKey);
             $stmt->close();
 
             session_regenerate_id(true);
@@ -145,6 +165,7 @@ if (isset($_POST['login'])) {
             exit();
         }
     } else {
+        login_register_failure($throttleKey);
         $_SESSION['error'] = "Incorrect username or password.";
         $_SESSION['active_form'] = 'login';
     }
