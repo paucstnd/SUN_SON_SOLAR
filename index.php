@@ -357,7 +357,7 @@ function isActiveForm($formName, $activeForm){
       </div>
 
       <h1 class="brand-word">Sun Son<br><span>Solar</span></h1>
-      <p class="tagline">When light becomes power. Manage your solar account, installations, and service in one place.</p>
+      <p class="tagline">When light becomes power.</p>
     </div>
   </div>
 
