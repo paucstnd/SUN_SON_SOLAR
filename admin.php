@@ -1,3 +1,9 @@
+<?php
+session_start();
+require_once 'security.php';
+
+$csrfToken = csrf_token();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -5,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <title>Sun Son Solar — Admin</title>
+    <title>Sun Son Solar Admin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -657,6 +663,7 @@
 
                 <form id="adminLogin" action="admin_login.php" method="post" novalidate>
 
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
 
                     <div class="input-group">
 
