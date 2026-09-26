@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'security.php';
 
 $loginError = $_SESSION['error'] ?? '';
 $registerError = $_SESSION['error'] ?? '';
@@ -7,6 +8,8 @@ $success = $_SESSION['success'] ?? '';
 $activeForm = $_SESSION['active_form'] ?? 'login';
 
 unset($_SESSION['error'], $_SESSION['success'], $_SESSION['active_form']);
+
+$csrfToken = csrf_token();
 
 function showError($error){
   return !empty($error) ? "<p class='error-message'>" . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . "</p>" : '';
@@ -357,7 +360,7 @@ function isActiveForm($formName, $activeForm){
       </div>
 
       <h1 class="brand-word">Sun Son<br><span>Solar</span></h1>
-      <p class="tagline">When light becomes power.</p>
+      <p class="tagline">When light becomes power. First Branch started at Pasig City.</p>
     </div>
   </div>
 
@@ -376,6 +379,7 @@ function isActiveForm($formName, $activeForm){
           </div>
 
           <form id="login" action="login_register.php" method="post" novalidate>
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
             <div class="input-group">
               <label for="loginUsername">Username</label>
               <input type="text" name="username" id="loginUsername" placeholder="Enter your username" required autocomplete="username">
@@ -415,6 +419,7 @@ function isActiveForm($formName, $activeForm){
         </div>
         <?= showError($activeForm === 'register' ? $registerError : '') ?>
         <form id="registration" action="login_register.php" method="post" novalidate>
+          <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
           <div class="form-grid">
 
             <div class="input-group full">
