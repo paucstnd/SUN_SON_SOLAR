@@ -1,4 +1,4 @@
-## Project title
+## Project Title
 SUN_SON_SOLAR
 
 ## Team Name
