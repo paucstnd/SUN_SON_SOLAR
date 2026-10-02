@@ -475,9 +475,14 @@ function isActiveForm($formName, $activeForm){
               <label for="department">Department</label>
                <select name="department" id="department">
                 <option value="">Select department</option>
+                <option value="Administration">Administration</option>
                 <option value="IT">IT</option>
-                <option value="Technician">Technician</option>
-                <option value="Dispatcher">Dispatcher</option>
+                <option value="Dispatch">Dispatch</option>
+                <option value="Accounting">Accounting</option>
+                <option value="HR">HR</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Sales">Sales</option>
+                <option value="Customer Service">Customer Service</option>
               </select>
             </div>
 
