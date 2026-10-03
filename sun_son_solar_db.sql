@@ -11,7 +11,7 @@ CREATE TABLE users (
   gender        ENUM('Male','Female','Other') NOT NULL,
   email         VARCHAR(150) NOT NULL UNIQUE,
   phone         VARCHAR(20) NOT NULL,
-  department    ENUM('IT','Dispatcher','Accounting', 'HR', 'Marketing', 'Sales', 'Customer Service') DEFAULT NULL,
+  department    ENUM('Administration','IT','Dispatch','Accounting', 'HR', 'Marketing', 'Sales', 'Customer Service') DEFAULT NULL,
   address       VARCHAR(255) NOT NULL,
   username      VARCHAR(50) NOT NULL UNIQUE,
   password      VARCHAR(255) NOT NULL,
