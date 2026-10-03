@@ -477,7 +477,7 @@ function isActiveForm($formName, $activeForm){
                 <option value="">Select department</option>
                 <option value="Administration">Administration</option>
                 <option value="IT">IT</option>
-                <option value="Dispatch">Dispatch</option>
+                <option value="Dispatch">Dispatcher</option>
                 <option value="Accounting">Accounting</option>
                 <option value="HR">HR</option>
                 <option value="Marketing">Marketing</option>
