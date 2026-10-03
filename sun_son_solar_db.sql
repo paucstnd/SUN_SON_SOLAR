@@ -19,6 +19,15 @@ CREATE TABLE users (
   created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE time_logs (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  user_id    INT NOT NULL,
+  time_in    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  latitude   DECIMAL(10,7) NOT NULL,
+  longitude  DECIMAL(10,7) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
 CREATE TABLE admins (
   id             INT AUTO_INCREMENT PRIMARY KEY,
   username       VARCHAR(50) NOT NULL UNIQUE,
