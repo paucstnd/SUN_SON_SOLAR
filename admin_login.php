@@ -53,6 +53,15 @@
 
     if (!$validPassword) {
         login_register_failure($throttleKey);
+        if (login_is_locked($throttleKey)) {
+            http_response_code(429);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Too many failed attempts. Please try again in ' . login_lock_seconds_remaining($throttleKey) . ' seconds.'
+            ]);
+            exit();
+        }
+
         http_response_code(401);
         echo json_encode([
             'success' => false,
