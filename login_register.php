@@ -137,7 +137,11 @@ if (isset($_POST['login'])) {
 
         if (!password_verify($password, $user['password'])) {
             login_register_failure($throttleKey);
-            $_SESSION['error'] = "Incorrect username or password.";
+            if (login_is_locked($throttleKey)) {
+                $_SESSION['error'] = "Too many failed attempts. Please try again in " . login_lock_seconds_remaining($throttleKey) . " seconds.";
+            } else {
+                $_SESSION['error'] = "Incorrect username or password.";
+            }
             $_SESSION['active_form'] = 'login';
         } elseif ($user['account_type'] === 'Employee' && $user['status'] !== 'approved') {
             $_SESSION['error'] = "Your employee account is still waiting for administrator approval.";
