@@ -61,7 +61,6 @@ function isActiveForm($formName, $activeForm){
     display:flex;
   }
 
-  /* LEFT — energy panel */
   .left-side{
     position:relative;
     width:44%;
@@ -126,7 +125,6 @@ function isActiveForm($formName, $activeForm){
     line-height:1.5;
   }
 
-  /* RIGHT — form panel */
   .right-side{
     width:56%;
     min-height:100vh;
@@ -260,7 +258,6 @@ function isActiveForm($formName, $activeForm){
 
   #departmentGroup{display:none;}
 
-  /* SUCCESS MODAL */
   .modal-overlay{
     display:none;
     position:fixed;
@@ -323,7 +320,6 @@ function isActiveForm($formName, $activeForm){
     .modal-box{animation:none;}
   }
 
-  /* MOBILE */
   @media (max-width:850px){
     .container{flex-direction:column;}
     .left-side{
@@ -352,7 +348,6 @@ function isActiveForm($formName, $activeForm){
 
 <div class="container">
 
-  <!-- LEFT SIDE -->
   <div class="left-side">
     <div>
       <div class="sun" aria-hidden="true">
@@ -365,11 +360,9 @@ function isActiveForm($formName, $activeForm){
   </div>
 
 
-  <!-- RIGHT SIDE -->
   <div class="right-side">
     <div class="form-container">
 
-      <!-- LOGIN FORM -->
       <div class="form-box <?php echo $activeForm === 'login' ? 'active' : ''; ?>" id="loginForm">
         <div class="login-form">
 
@@ -410,7 +403,6 @@ function isActiveForm($formName, $activeForm){
       </div>
 
 
-      <!-- REGISTRATION FORM -->
       <div class="form-box <?php echo $activeForm === 'register' ? 'active' : ''; ?>" id="registerForm">
 
         <div class="form-header">
@@ -534,7 +526,7 @@ function isActiveForm($formName, $activeForm){
 </div>
 
 <?php if ($success): ?>
-<!-- SUCCESS MODAL -->
+
 <div class="modal-overlay active" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
   <div class="modal-box">
     <div class="modal-icon" aria-hidden="true">
@@ -568,6 +560,23 @@ function isActiveForm($formName, $activeForm){
       button.textContent = "Show";
     }
   }
+  function startLockoutCountdown(message){
+    const match = message.textContent.match(/Please try again in (\d+) seconds?\./i);
+    if(!match) return;
+
+    const deadline = Date.now() + Number(match[1]) * 1000;
+    const interval = window.setInterval(function(){
+      const secondsRemaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      if(secondsRemaining === 0){
+        message.textContent = "You can try logging in again.";
+        window.clearInterval(interval);
+        return;
+      }
+
+      message.textContent = "Too many failed attempts. Please try again in " +
+        secondsRemaining + " second" + (secondsRemaining === 1 ? "" : "s") + ".";
+    }, 250);
+  }
   function toggleDepartment(){
     const accountType = document.getElementById("accountType").value;
     const departmentGroup = document.getElementById("departmentGroup");
@@ -586,6 +595,9 @@ function isActiveForm($formName, $activeForm){
   document.getElementById("phone").addEventListener("input", function(){
     this.value = this.value.replace(/[^0-9]/g, "");
   });
+
+  startLockoutCountdown(document.getElementById("loginMessage"));
+  startLockoutCountdown(document.getElementById("registerMessage"));
 
   function closeModal(){
     document.getElementById("successModal").classList.remove("active");
