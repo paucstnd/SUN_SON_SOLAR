@@ -761,6 +761,23 @@ $csrfToken = csrf_token();
 
     <script>
 
+        function startLockoutCountdown(message) {
+            const match = message.textContent.match(/Please try again in (\d+) seconds?\./i);
+            if (!match) return;
+
+            const deadline = Date.now() + Number(match[1]) * 1000;
+            const interval = window.setInterval(function () {
+                const secondsRemaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+                if (secondsRemaining === 0) {
+                    message.textContent = "You can try logging in again.";
+                    window.clearInterval(interval);
+                    return;
+                }
+
+                message.textContent = "Too many failed attempts. Please try again in " +
+                    secondsRemaining + " second" + (secondsRemaining === 1 ? "" : "s") + ".";
+            }, 250);
+        }
 
         function togglePassword(inputId, button) {
 
@@ -893,6 +910,7 @@ $csrfToken = csrf_token();
                             message.classList.toggle("success", result.success);
                             message.style.display = "block";
                             message.textContent = result.message;
+                            startLockoutCountdown(message);
 
                             if (result.success) {
                                 if (rememberMe) {
