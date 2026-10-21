@@ -7,6 +7,8 @@ PAW PATWROL
 ## Description
 When light becomes power. Manage your solar account, installations, and service in one place.
 
+Sun Son Solar is a company that sells solar products such as panels, inverters, batteries, racking and mounting, and wires. It also offers solar services like consultation, designing, permitting, installation, maintenance, repair, and monitoring. The system we created is a website that makes work easier for the customer, the employee, and the admin. It stores the records of the company’s products and services in one secure, organized, and digital place. It replaces manual processes and gives the company a better flow of work.
+
 ## Setup (XAMPP)
 1. Copy this folder to `C:\xampp\htdocs\sun_son_solar`.
 2. For a new database, import **sun_son_solar_db.sql** in phpMyAdmin. It includes the complete schema and seed data.
