@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Announcements to employees (reminders, safety guidelines, urgent notices). Admin and HR. */
+
 $auth = require_auth(['admin', 'hr']);
 $self = 'admin_announcements.php';
 

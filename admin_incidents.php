@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Problems logged by technicians in the field */
+
 $auth = require_auth(['admin']);
 $self = 'admin_incidents.php';
 

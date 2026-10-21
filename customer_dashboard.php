@@ -300,7 +300,7 @@ render_header($auth, 'My schedule', 'customer_dashboard.php', 'Welcome back, ' .
   <?php endif; ?>
 </div>
 
-<!-- Book modal -->
+
 <div class="modal-overlay" id="bookModal" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
   <div class="modal-box">
     <div class="modal-head"><div><h2 id="bookTitle">Book a service</h2><p class="muted small">We are open <?= e(opening_summary($conn)) ?>. Please book at least one day ahead.</p></div><button type="button" class="modal-x" data-close-modal aria-label="Close">×</button></div>
@@ -321,7 +321,7 @@ render_header($auth, 'My schedule', 'customer_dashboard.php', 'Welcome back, ' .
   </div>
 </div>
 
-<!-- Reschedule modal -->
+
 <div class="modal-overlay" id="reschedModal" role="dialog" aria-modal="true" aria-labelledby="reTitle">
   <div class="modal-box">
     <div class="modal-head"><div><h2 id="reTitle">Reschedule</h2><p class="muted small">Your new time will need to be confirmed again.</p></div><button type="button" class="modal-x" data-close-modal aria-label="Close">×</button></div>

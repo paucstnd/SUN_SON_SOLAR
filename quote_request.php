@@ -14,12 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !csrf_verify($_POST['csrf_token'] ?
     back('quote_err', 'Your session expired. Please try again.');
 }
 
-// Honeypot: real visitors never fill this in
+
 if (trim($_POST['website'] ?? '') !== '') {
     back('quote_ok', 'Thank you! We will contact you soon.');
 }
 
-// Simple flood control: one request every 30 seconds per visitor
+
 if (!empty($_SESSION['last_quote']) && time() - (int) $_SESSION['last_quote'] < 30) {
     back('quote_err', 'Please wait a moment before sending another request.');
 }

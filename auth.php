@@ -3,15 +3,15 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/security.php';
 
-/**
- * Roles: admin | customer | technician | dispatcher | hr | staff
- *  - admin      : row in `admins`
- *  - customer   : users.account_type = Customer
- *  - technician : employee, department Technician
- *  - dispatcher : employee, department Dispatch
- *  - hr         : employee, department HR (creates employee accounts, posts announcements)
- *  - staff      : any other employee department
- */
+
+
+
+
+
+
+
+
+
 function role_home(string $role): string {
     switch ($role) {
         case 'admin':      return 'admin_dashboard.php';
@@ -48,10 +48,10 @@ function force_logout(string $message, string $page = 'index.php'): void {
     exit();
 }
 
-/**
- * Guard a page. Returns ['role','id','name','username','department','must_change_password'].
- * Also re-checks the database on every request, so a deactivated account is locked out immediately.
- */
+
+
+
+
 function require_auth(array $allowedRoles): array {
     global $conn;
 

@@ -15,6 +15,6 @@ try {
 
 $conn->set_charset("utf8mb4");
 
-// Keep PHP and MySQL on Philippine time so check-in times and NOW() agree.
+
 date_default_timezone_set('Asia/Manila');
 $conn->query("SET time_zone = '+08:00'");

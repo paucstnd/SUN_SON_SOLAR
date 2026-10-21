@@ -4,7 +4,7 @@ require_once 'config.php';
 require_once 'security.php';
 require_once 'functions.php';
 
-/* Public "Forgot password?" request. Staff verify the person, then set a temporary password. */
+
 $done = false;
 $error = '';
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt->close();
                 }
             }
-            $done = true; // same message whether or not the account exists
+            $done = true; 
         }
     }
 }

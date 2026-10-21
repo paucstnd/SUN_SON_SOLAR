@@ -5,14 +5,14 @@ require_once 'security.php';
 require_once 'auth.php';
 require_once 'functions.php';
 
-/* ---------- Company details shown on the page (edit here) ---------- */
+
 $company = [
     'name'    => 'Sun Son Solar',
     'city'    => 'Pasig City, Philippines',
     'phone'   => '0929 123 0983',
     'email'   => 'katherine.sinagaraw@sunsonsolar.com',
     'hours'   => 'Mon–Fri 8:00 AM – 5:00 PM · Sat 8:00 AM – 12:00 NN',
-    // Replace the '#' with the real social media page links
+   
     'social'  => ['Facebook' => '#', 'Instagram' => '#', 'YouTube' => '#'],
 ];
 
@@ -35,7 +35,7 @@ function showError($error){
   return !empty($error) ? "<p class='error-message'>" . htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . "</p>" : '';
 }
 
-/* Already logged in? show a dashboard shortcut instead of the login section. */
+
 $dashboardLink = '';
 if (!empty($_SESSION['admin_logged_in'])) {
     $dashboardLink = 'admin_dashboard.php';
@@ -101,7 +101,7 @@ $faqs = [
 </header>
 
 <main id="top">
-<!-- ===== Hero ===== -->
+
 <section class="hero" style="padding:0">
   <div class="wrap">
     <div>
@@ -126,7 +126,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== Products ===== -->
+
 <section id="products">
   <div class="wrap">
     <div class="sec-head">
@@ -151,7 +151,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== Services ===== -->
+
 <section id="services" class="alt">
   <div class="wrap">
     <div class="sec-head">
@@ -174,7 +174,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== Why solar ===== -->
+
 <section id="why-solar">
   <div class="wrap">
     <div class="sec-head">
@@ -189,7 +189,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== About ===== -->
+
 <section id="about" class="alt">
   <div class="wrap about">
     <div>
@@ -208,7 +208,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== Testimonials ===== -->
+
 <section id="stories">
   <div class="wrap">
     <div class="sec-head">
@@ -230,7 +230,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== Quote CTA ===== -->
+
 <section id="quote" class="cta-band">
   <div class="wrap cta-grid">
     <div>
@@ -263,7 +263,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== Login / register ===== -->
+
 <section id="account">
   <div class="wrap account-grid">
     <div class="account-copy">
@@ -372,7 +372,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== FAQ ===== -->
+
 <section id="faq" class="alt">
   <div class="wrap">
     <div class="sec-head"><h2>Frequently asked questions</h2><p>Quick answers to common concerns about going solar.</p></div>
@@ -384,7 +384,7 @@ $faqs = [
   </div>
 </section>
 
-<!-- ===== News ===== -->
+
 <section id="news">
   <div class="wrap">
     <div class="sec-head"><h2>News &amp; updates</h2><p>Solar tips and updates from the Sun Son Solar team.</p></div>
@@ -405,7 +405,7 @@ $faqs = [
 </section>
 </main>
 
-<!-- ===== Footer ===== -->
+
 <footer class="site" id="contact">
   <div class="wrap">
     <div class="foot-grid">
@@ -437,7 +437,7 @@ $faqs = [
   </div>
 </footer>
 
-<!-- Legal notices (have a lawyer review and replace this wording before launch) -->
+
 <div class="modal-overlay" id="legalPrivacy" role="dialog" aria-modal="true" aria-labelledby="lpT">
   <div class="modal-box">
     <h3 id="lpT">Privacy notice</h3>

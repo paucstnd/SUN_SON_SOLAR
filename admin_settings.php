@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Settings: service categories + pricing, weekly availability, blocked dates. No developer needed. */
+
 $auth = require_auth(['admin']);
 $self = 'admin_settings.php';
 

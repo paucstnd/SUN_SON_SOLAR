@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Employee account: update contact details and change password (department and username are set by HR/Admin). */
+
 $auth = require_auth(['technician', 'dispatcher', 'hr', 'staff']);
 $uid = $auth['id'];
 $self = 'employee_profile.php';

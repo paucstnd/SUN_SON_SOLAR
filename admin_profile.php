@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Administrator account: update details and change password (Sol changes admin123 here after handover). */
+
 $auth = require_auth(['admin']);
 $aid = $auth['id'];
 $self = 'admin_profile.php';

@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Technician home: one-button time-in (name, time, coordinates) + my assigned jobs (limited customer details). */
+
 $auth = require_auth(['technician']);
 $uid = $auth['id'];
 $self = 'technician_dashboard.php';
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect($self);
     }
 
-    // Optional: the job being started. Must be assigned to this technician.
+    
     $bookingId = (int) ($_POST['booking_id'] ?? 0);
     $bookingParam = null;
     if ($bookingId > 0) {
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
     }
 
-    // Guard against double taps: ignore a second time-in within 2 minutes.
+    
     $stmt = $conn->prepare('SELECT COUNT(*) AS c FROM attendance WHERE user_id = ? AND checked_in_at >= DATE_SUB(NOW(), INTERVAL 2 MINUTE)');
     $stmt->bind_param('i', $uid);
     $stmt->execute();
@@ -90,14 +90,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect($self);
 }
 
-// Today's time-ins
+
 $stmt = $conn->prepare('SELECT checked_in_at, checked_out_at, latitude, longitude, booking_id FROM attendance WHERE user_id = ? AND DATE(checked_in_at) = CURDATE() ORDER BY checked_in_at DESC');
 $stmt->bind_param('i', $uid);
 $stmt->execute();
 $today = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
-// My assigned jobs: name, address and service only (no phone, email or notes).
+
 $stmt = $conn->prepare("SELECT b.id, b.scheduled_date, b.scheduled_time, b.address, b.admin_note, s.name AS service_name,
         CONCAT(c.first_name, ' ', c.last_name) AS customer_name
     FROM bookings b JOIN services s ON s.id = b.service_id JOIN users c ON c.id = b.user_id

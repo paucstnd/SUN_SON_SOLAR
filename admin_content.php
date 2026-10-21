@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Website content: products shown on the homepage and customer dashboard, plus testimonials and news. */
+
 $auth = require_auth(['admin']);
 $tab = $_GET['tab'] ?? 'products';
 if (!in_array($tab, ['products', 'testimonials', 'news'], true)) { $tab = 'products'; }

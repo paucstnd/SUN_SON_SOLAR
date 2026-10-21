@@ -1,5 +1,5 @@
 <?php
-/* Approve / decline / assign technician / reschedule a booking. Used by Admin and Dispatcher. */
+
 session_start();
 require_once 'auth.php';
 require_once 'functions.php';
@@ -39,7 +39,7 @@ if (!in_array($status, BOOKING_STATUSES, true)) {
 $time5 = substr($time, 0, 5);
 $changedSlot = ($date !== $b['scheduled_date'] || $time5 !== substr($b['scheduled_time'], 0, 5));
 if ($changedSlot) {
-    // Staff may place a booking on the same day, but not on closed / blocked / full days
+    
     if ($err = availability_error($conn, $date, $time, $id, false)) {
         flash_error($err);
         redirect($back);
@@ -68,7 +68,7 @@ $stmt->bind_param('sisssi', $status, $techParam, $date, $time, $note, $id);
 $stmt->execute();
 $stmt->close();
 
-// Tell the customer what changed
+
 $by = $auth['name'];
 $when = fmt_date($date) . ' at ' . fmt_time($time);
 if ($status !== $b['status']) {

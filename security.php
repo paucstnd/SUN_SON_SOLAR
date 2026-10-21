@@ -88,7 +88,7 @@ function login_register_success(mysqli $conn, string $username, string $ipAddres
     $stmt->close();
 }
 
-/* ---------- Shared helpers (added) ---------- */
+
 
 function e($value): string {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
@@ -98,7 +98,7 @@ function csrf_field(): string {
     return '<input type="hidden" name="csrf_token" value="' . e(csrf_token()) . '">';
 }
 
-/** Stop the request unless it is a POST carrying a valid CSRF token. */
+
 function require_post_csrf(string $redirect = ''): void {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !csrf_verify($_POST['csrf_token'] ?? '')) {
         if ($redirect !== '') {
@@ -121,7 +121,7 @@ function flash_success(string $msg): void {
     log_activity($msg);
 }
 
-/** Record who did what (shown in Admin > Activity log). Never breaks the page if logging fails. */
+
 function log_activity(string $action, ?array $actor = null): void {
     global $conn;
     $a = $actor ?? ($GLOBALS['AUTH'] ?? null);
@@ -140,7 +140,7 @@ function log_activity(string $action, ?array $actor = null): void {
         $stmt->execute();
         $stmt->close();
     } catch (Throwable $e) {
-        // table may not exist yet (migration not run) - ignore
+        
     }
 }
 function flash_error(string $msg): void { $_SESSION['error'] = $msg; }

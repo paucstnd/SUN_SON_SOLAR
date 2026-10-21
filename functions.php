@@ -1,5 +1,5 @@
 <?php
-/* Shared helpers for Sun Son Solar (bookings, notifications, formatting). */
+
 
 const DEPARTMENTS = ['Administration', 'IT', 'Technician', 'Dispatch', 'Accounting', 'HR', 'Marketing', 'Sales', 'Customer Service'];
 const PRODUCT_CATEGORIES = ['Solar Panels', 'Inverters', 'Batteries', 'Racking & Mounting', 'Wires & Cables'];
@@ -45,7 +45,7 @@ function notification_enabled(mysqli $conn, string $type): bool {
     return !$row || (int) $row['is_enabled'] === 1;
 }
 
-/** Send a notification to one customer. Respects the admin on/off switch for that alert type. */
+
 function notify_user(mysqli $conn, int $userId, string $type, string $title, string $message, string $by = 'System'): void {
     if (!notification_enabled($conn, $type)) {
         return;
@@ -64,10 +64,10 @@ function technician_list(mysqli $conn): array {
     return $conn->query("SELECT id, first_name, last_name FROM users WHERE account_type = 'Employee' AND department = 'Technician' AND status = 'approved' ORDER BY first_name, last_name")->fetch_all(MYSQLI_ASSOC);
 }
 
-/**
- * Check a requested date/time against opening days, hours, blocked dates and daily capacity.
- * Returns '' when OK, otherwise a message that can be shown to the user.
- */
+
+
+
+
 function availability_error(mysqli $conn, string $date, string $time, int $excludeBookingId = 0, bool $requireAdvance = true): string {
     $d = DateTime::createFromFormat('Y-m-d', $date);
     if (!$d || $d->format('Y-m-d') !== $date) {
@@ -137,7 +137,7 @@ function valid_date_string($d): bool {
     return $dt && $dt->format('Y-m-d') === $d;
 }
 
-/** Validate shared person fields; returns an error message or ''. */
+
 function validate_person(array $in, bool $needPassword): string {
     foreach (['first_name', 'last_name', 'birthdate', 'gender', 'email', 'phone', 'address', 'username'] as $f) {
         if (trim($in[$f] ?? '') === '') {
@@ -162,9 +162,9 @@ function validate_person(array $in, bool $needPassword): string {
     return '';
 }
 
-/* ---------- Customer notification helpers ---------- */
 
-/** WHERE fragment (needs 4 params: user id, user id, reminders pref, promotions pref) for a customer's visible notifications. */
+
+
 const CUSTOMER_NOTIF_WHERE = "(n.audience = 'customers' OR (n.audience = 'user' AND n.user_id = ?))
     AND (n.type <> 'reminder' OR ? = 1) AND (n.type <> 'promotion' OR ? = 1)
     AND n.created_at >= (SELECT created_at FROM users WHERE id = ?)";
@@ -191,7 +191,7 @@ function customer_unread_count(mysqli $conn, int $userId): int {
     return $c;
 }
 
-/** Human-readable opening days, e.g. "Mon–Fri 8:00 AM – 5:00 PM · Sat 8:00 AM – 12:00 PM". */
+
 function opening_summary(mysqli $conn): string {
     $names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     $rows = $conn->query('SELECT day_of_week, is_open, open_time, close_time FROM availability ORDER BY day_of_week')->fetch_all(MYSQLI_ASSOC);

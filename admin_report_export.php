@@ -1,5 +1,5 @@
 <?php
-/* CSV exports for reports, attendance and payments (admin only). */
+
 session_start();
 require_once 'auth.php';
 require_once 'functions.php';
@@ -12,7 +12,7 @@ $to = valid_date_string($_GET['to'] ?? '') ? $_GET['to'] : date('Y-m-d');
 
 function csv_safe($v) {
     $v = (string) $v;
-    // Stop spreadsheet formula injection
+    
     return ($v !== '' && strpos("=+-@\t\r", $v[0]) !== false) ? "'" . $v : $v;
 }
 
@@ -61,7 +61,7 @@ switch ($type) {
 header('Content-Type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename="sunson_' . $type . '_' . $from . '_to_' . $to . '.csv"');
 $out = fopen('php://output', 'w');
-fwrite($out, "\xEF\xBB\xBF"); // UTF-8 BOM so Excel opens ₱ and accents correctly
+fwrite($out, "\xEF\xBB\xBF"); 
 fputcsv($out, $head);
 foreach ($data as $row) {
     fputcsv($out, array_map('csv_safe', $row));

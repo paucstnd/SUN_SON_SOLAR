@@ -107,7 +107,7 @@ if (isset($_POST['register'])) {
                 );
 
                 if ($stmt->execute()) {
-                    // Only customers can self-register. Employee accounts are created by HR/Admin.
+                    
                     unset($_SESSION['registration_values']);
                     $_SESSION['success'] = "Registration successful! You can now log in.";
                     $_SESSION['active_form'] = 'login';

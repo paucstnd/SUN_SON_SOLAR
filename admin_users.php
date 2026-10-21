@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* User management: add employee, view, edit, deactivate. Admin and HR. (Customers register themselves.) */
+
 $auth = require_auth(['admin', 'hr']);
 $isAdmin = $auth['role'] === 'admin';
 $self = 'admin_users.php';
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'edit_user') {
         $uid = (int) ($_POST['id'] ?? 0);
         $p = person_from_post();
-        $p['username'] = 'x'; // not editable
+        $p['username'] = 'x'; 
         $stmt = $conn->prepare('SELECT account_type FROM users WHERE id = ?');
         $stmt->bind_param('i', $uid);
         $stmt->execute();
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect($back);
     }
 
-    // ----- Administrator accounts (admin only) -----
+    
     if (!$isAdmin) {
         flash_error('Only administrators can manage administrator accounts.');
         redirect($self);
@@ -261,7 +261,7 @@ render_header($auth, 'User management', 'admin_users.php', $isAdmin ? 'Add emplo
   <?php endif; ?>
 </div>
 
-<!-- Add employee -->
+
 <div class="modal-overlay" id="addUserModal" role="dialog" aria-modal="true" aria-labelledby="auT">
   <div class="modal-box" style="max-width:680px">
     <div class="modal-head"><div><h2 id="auT">Add employee</h2><p class="muted small">The employee logs in with the username and temporary password below.</p></div><button type="button" class="modal-x" data-close-modal aria-label="Close">×</button></div>
@@ -285,7 +285,7 @@ render_header($auth, 'User management', 'admin_users.php', $isAdmin ? 'Add emplo
   </div>
 </div>
 
-<!-- Edit user -->
+
 <div class="modal-overlay" id="editUserModal" role="dialog" aria-modal="true" aria-labelledby="euT">
   <div class="modal-box" style="max-width:680px">
     <div class="modal-head"><div><h2 id="euT">Edit user</h2><p class="muted small" id="eu_sub"></p></div><button type="button" class="modal-x" data-close-modal aria-label="Close">×</button></div>
@@ -307,7 +307,7 @@ render_header($auth, 'User management', 'admin_users.php', $isAdmin ? 'Add emplo
   </div>
 </div>
 
-<!-- Reset password -->
+
 <div class="modal-overlay" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="rpT">
   <div class="modal-box">
     <div class="modal-head"><div><h2 id="rpT">Reset password</h2><p class="muted small" id="rp_sub"></p></div><button type="button" class="modal-x" data-close-modal aria-label="Close">×</button></div>
@@ -320,7 +320,7 @@ render_header($auth, 'User management', 'admin_users.php', $isAdmin ? 'Add emplo
 </div>
 
 <?php if ($isAdmin): ?>
-<!-- Add administrator -->
+
 <div class="modal-overlay" id="addAdminModal" role="dialog" aria-modal="true" aria-labelledby="aaT">
   <div class="modal-box">
     <div class="modal-head"><div><h2 id="aaT">Add administrator</h2></div><button type="button" class="modal-x" data-close-modal aria-label="Close">×</button></div>

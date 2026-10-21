@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Technicians log problems met during service (equipment issues, customer concerns). Goes straight to the admin dashboard. */
+
 $auth = require_auth(['technician']);
 $uid = $auth['id'];
 $self = 'technician_report.php';

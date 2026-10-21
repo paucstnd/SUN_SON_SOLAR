@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Activity log: who did what, and when. Admin only. */
+
 $auth = require_auth(['admin']);
 
 $from = valid_date_string($_GET['from'] ?? '') ? $_GET['from'] : date('Y-m-d', strtotime('-7 days'));

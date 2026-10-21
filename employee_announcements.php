@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Announcement feed for every employee role (reminders, safety guidelines, urgent notices from Admin / HR). */
+
 $auth = require_auth(['technician', 'dispatcher', 'hr', 'staff']);
 $dept = $auth['department'] ?? '';
 

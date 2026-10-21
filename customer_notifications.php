@@ -34,7 +34,7 @@ $type = $_GET['type'] ?? '';
 $typeSql = isset(NOTIFICATION_TYPES[$type]) ? ' AND n.type = ?' : '';
 $stmt = $conn->prepare("SELECT n.*, (SELECT COUNT(*) FROM notification_reads r WHERE r.notification_id = n.id AND r.user_id = ?) AS is_read
     FROM notifications n WHERE " . CUSTOMER_NOTIF_WHERE . $typeSql . " ORDER BY n.created_at DESC, n.id DESC LIMIT 100");
-// placeholders: read-check user, then the WHERE fragment (user, reminders, promotions, user), then optional type
+
 $bindParams = array_merge([$uid, $uid, $rem, $pro, $uid], $typeSql ? [$type] : []);
 $stmt->bind_param('iiiii' . ($typeSql ? 's' : ''), ...$bindParams);
 $stmt->execute();

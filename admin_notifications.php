@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Notifications control panel: decide which alerts go out and send them to customers. */
+
 $auth = require_auth(['admin']);
 $self = 'admin_notifications.php';
 

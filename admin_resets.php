@@ -3,7 +3,7 @@ session_start();
 require_once 'auth.php';
 require_once 'layout.php';
 
-/* Password reset requests from the "Forgot password?" page. Admin and HR set a temporary password. */
+
 $auth = require_auth(['admin', 'hr']);
 $self = 'admin_resets.php';
 

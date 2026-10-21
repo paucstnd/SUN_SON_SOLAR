@@ -1,5 +1,5 @@
 <?php
-/* Dashboard shell shared by every logged-in page (same navy / gold look as the login page). */
+
 require_once __DIR__ . '/functions.php';
 
 function icon(string $name): string {
@@ -71,7 +71,7 @@ function nav_badges(mysqli $conn, array $auth): array {
         $b['admin_support.php'] = (int) $conn->query("SELECT COUNT(*) FROM tickets WHERE status = 'open'")->fetch_row()[0];
         $b['admin_incidents.php'] = (int) $conn->query("SELECT COUNT(*) FROM incident_reports WHERE status = 'new'")->fetch_row()[0];
         $b['admin_quotes.php'] = (int) $conn->query("SELECT COUNT(*) FROM quote_requests WHERE status = 'new'")->fetch_row()[0];
-        try { $b['admin_resets.php'] = (int) $conn->query("SELECT COUNT(*) FROM password_reset_requests WHERE status = 'new'")->fetch_row()[0]; } catch (Throwable $e) { /* Keep navigation usable if the reset-request table is unavailable. */ }
+        try { $b['admin_resets.php'] = (int) $conn->query("SELECT COUNT(*) FROM password_reset_requests WHERE status = 'new'")->fetch_row()[0]; } catch (Throwable $e) {  }
     } elseif ($auth['role'] === 'customer') {
         $b['customer_notifications.php'] = customer_unread_count($conn, $auth['id']);
     } elseif ($auth['role'] === 'dispatcher') {
@@ -157,7 +157,7 @@ function render_footer(array $scripts = []): void {
 <?php
 }
 
-/** Small helper: render a <select> of options. $options = [value => label]. */
+
 function select_options(array $options, $selected = null): string {
     $html = '';
     foreach ($options as $value => $label) {

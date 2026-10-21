@@ -1,5 +1,5 @@
 <?php
-/* Calendar + pending queue, shared by admin_schedule.php and dispatcher_dashboard.php */
+
 
 function render_schedule_view(mysqli $conn, string $baseFile): void {
     $month = preg_match('/^\d{4}-\d{2}$/', $_GET['month'] ?? '') ? $_GET['month'] : date('Y-m');
